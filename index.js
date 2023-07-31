@@ -16,9 +16,7 @@ import {
 } from './controllers/PostController.js';
 
 mongoose
-  .connect(
-    'mongodb+srv://ruzeldenf:wwwwww@cluster0.nb2xzuc.mongodb.net/blog?retryWrites=true&w=majority',
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('DB ok');
   })
@@ -60,7 +58,7 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
   res.json({ url: `/uploads/${req.file.originalname}` });
 });
 
-app.listen(4444, (err, res) => {
+app.listen(process.env.PORT || 4444, (err, res) => {
   if (err) {
     return console.log(err);
   }
